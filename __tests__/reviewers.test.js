@@ -103,9 +103,6 @@ describe('reviewer routes', () => {
         });
 
         return Reviewer.find();
-        //   })
-        //   .then(reviews => {
-        //     expect(reviews).toHaveLength(0);
       });
   });
 });
