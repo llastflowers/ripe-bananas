@@ -36,6 +36,7 @@ describe('reviewer routes', () => {
       })
       .then(res => {
         expect(res.body).toEqual({
+          id: expect.any(String), 
           _id: expect.any(String),
           name: 'Roger Ebert',
           company: 'The Chicago Sun-Times',
@@ -56,6 +57,7 @@ describe('reviewer routes', () => {
       .then(res => {
         reviewers.forEach(reviewer => {
           expect(res.body).toContainEqual({
+            id: expect.any(String), 
             _id: reviewer._id.toString(),
             name: reviewer.name,
             company: reviewer.company
@@ -83,6 +85,7 @@ describe('reviewer routes', () => {
       .send({ name: 'Roger Eggbert' })
       .then(res => {
         expect(res.body).toEqual({
+          id: expect.any(String), 
           _id: expect.any(String),
           name: 'Roger Eggbert',
           company: 'The Chicago Sun-Times',
@@ -96,6 +99,7 @@ describe('reviewer routes', () => {
       .delete(`/api/v1/reviewers/${reviewer._id}`)
       .then(res => {
         expect(res.body).toEqual({
+          id: expect.any(String),
           _id: expect.any(String),
           name: 'Roger Ebert',
           company: 'The Chicago Sun-Times',
