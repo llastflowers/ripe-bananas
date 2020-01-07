@@ -76,4 +76,36 @@ describe('reviewer routes', () => {
         });
       });
   });
+
+  it('updates a reviewer by id', async() => {
+    return request(app)
+      .patch(`/api/v1/reviewers/${reviewer._id}`)
+      .send({ name: 'Roger Eggbert' })
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'Roger Eggbert',
+          company: 'The Chicago Sun-Times',
+          __v: 0
+        });
+      });
+  });
+
+  it('deletes a reviewer by id', async() => {
+    return request(app)
+      .delete(`/api/v1/reviewers/${reviewer._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: expect.any(String),
+          name: 'Roger Ebert',
+          company: 'The Chicago Sun-Times',
+          __v: 0
+        });
+
+        return Reviewer.find();
+        //   })
+        //   .then(reviews => {
+        //     expect(reviews).toHaveLength(0);
+      });
+  });
 });
