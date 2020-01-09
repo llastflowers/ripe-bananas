@@ -21,7 +21,6 @@ describe('review routes', () => {
   let studio;
   let reviewer;
   let film;
-  //   let review;
   let reviews;
   beforeEach(async() => {
     studio = await Studio.create({
@@ -35,21 +34,14 @@ describe('review routes', () => {
       
     film = await Film.create({
       title: 'Coraline',
-      studioId: studio._id,
+      studio: studio._id,
       released: 2009
     });
-      
-    // review = await Review.create({
-    //   rating: 5,
-    //   reviewerId: reviewer._id,
-    //   review: 'Simply the bestest',
-    //   filmId: film._id
-    // });
 
     reviews = await Review.create([
-      { rating: 5, reviewerId: reviewer._id, review: 'Simply the bestest', filmId: film._id },
-      { rating: 3, reviewerId: reviewer._id, review: 'Simply the okayest', filmId: film._id },
-      { rating: 1, reviewerId: reviewer._id, review: 'Simply the worstest', filmId: film._id }
+      { rating: 5, reviewer: reviewer._id, review: 'Simply the bestest', film: film._id },
+      { rating: 3, reviewer: reviewer._id, review: 'Simply the okayest', film: film._id },
+      { rating: 1, reviewer: reviewer._id, review: 'Simply the worstest', film: film._id }
     ]);
   });
 
@@ -62,17 +54,17 @@ describe('review routes', () => {
       .post('/api/v1/reviews')
       .send({
         rating: 5,
-        reviewerId: reviewer._id.toString(),
+        reviewer: reviewer._id.toString(),
         review: 'Simply the bestest',
-        filmId: film._id.toString()
+        film: film._id.toString()
       })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           rating: 5,
-          reviewerId: reviewer._id.toString(),
+          reviewer: reviewer._id.toString(),
           review: 'Simply the bestest',
-          filmId: film._id.toString(),
+          film: film._id.toString(),
           __v: 0
         });
       });
@@ -88,7 +80,7 @@ describe('review routes', () => {
             _id: review._id.toString(),
             rating: review.rating,
             review: review.review,
-            filmId: film._id.toString()
+            film: film._id.toString()
           });
         });
       });
@@ -101,9 +93,9 @@ describe('review routes', () => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           rating: 5,
-          reviewerId: reviewer._id.toString(),
+          reviewer: reviewer._id.toString(),
           review: 'Simply the bestest',
-          filmId: film._id.toString(),
+          film: film._id.toString(),
           __v: 0
         });
 
